@@ -2,7 +2,6 @@
 
 set -euo pipefail
 
-# TODO: Ensure this is the correct GitHub homepage where releases can be downloaded for osv-scanner.
 GH_REPO="https://github.com/google/osv-scanner"
 TOOL_NAME="osv-scanner"
 TOOL_TEST="osv-scanner --version"
@@ -31,9 +30,24 @@ list_github_tags() {
 }
 
 list_all_versions() {
-	# TODO: Adapt this. By default we simply list the tag names from GitHub releases.
-	# Change this function if osv-scanner has other means of determining installable versions.
-	list_github_tags
+	# Releases before 1.7.0 use a different asset naming scheme, so only 1.7.0+ is supported.
+	list_github_tags | grep -Ev '^(0\.|1\.[0-6]\.)'
+}
+
+get_platform() {
+	case "$(uname -s)" in
+	Linux) echo "linux" ;;
+	Darwin) echo "darwin" ;;
+	*) fail "Unsupported OS: $(uname -s)" ;;
+	esac
+}
+
+get_arch() {
+	case "$(uname -m)" in
+	x86_64 | amd64) echo "amd64" ;;
+	aarch64 | arm64) echo "arm64" ;;
+	*) fail "Unsupported architecture: $(uname -m)" ;;
+	esac
 }
 
 download_release() {
@@ -41,8 +55,7 @@ download_release() {
 	version="$1"
 	filename="$2"
 
-	# TODO: Adapt the release URL convention for osv-scanner
-	url="$GH_REPO/archive/v${version}.tar.gz"
+	url="$GH_REPO/releases/download/v${version}/${TOOL_NAME}_$(get_platform)_$(get_arch)"
 
 	echo "* Downloading $TOOL_NAME release $version..."
 	curl "${curl_opts[@]}" -o "$filename" -C - "$url" || fail "Could not download $url"
@@ -61,7 +74,6 @@ install_version() {
 		mkdir -p "$install_path"
 		cp -r "$ASDF_DOWNLOAD_PATH"/* "$install_path"
 
-		# TODO: Assert osv-scanner executable exists.
 		local tool_cmd
 		tool_cmd="$(echo "$TOOL_TEST" | cut -d' ' -f1)"
 		test -x "$install_path/$tool_cmd" || fail "Expected $install_path/$tool_cmd to be executable."
