@@ -1,6 +1,8 @@
 <div align="center">
 
-# asdf-osv-scanner [![Build](https://github.com/mubarak-j/asdf-osv-scanner/actions/workflows/build.yml/badge.svg)](https://github.com/mubarak-j/asdf-osv-scanner/actions/workflows/build.yml) [![Lint](https://github.com/mubarak-j/asdf-osv-scanner/actions/workflows/lint.yml/badge.svg)](https://github.com/mubarak-j/asdf-osv-scanner/actions/workflows/lint.yml)
+# asdf-osv-scanner
+
+[![Build](https://github.com/mubarak-j/asdf-osv-scanner/actions/workflows/build.yml/badge.svg)](https://github.com/mubarak-j/asdf-osv-scanner/actions/workflows/build.yml) [![Lint](https://github.com/mubarak-j/asdf-osv-scanner/actions/workflows/lint.yml/badge.svg)](https://github.com/mubarak-j/asdf-osv-scanner/actions/workflows/lint.yml) [![Release](https://img.shields.io/github/v/release/mubarak-j/asdf-osv-scanner)](https://github.com/mubarak-j/asdf-osv-scanner/releases) [![License](https://img.shields.io/github/license/mubarak-j/asdf-osv-scanner)](LICENSE)
 
 [osv-scanner](https://google.github.io/osv-scanner/) plugin for the [asdf version manager](https://asdf-vm.com).
 
