@@ -19,6 +19,4 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - name: Check workflow files
-        uses: docker://rhysd/actionlint:1.6.23
-        with:
-          args: -color
+        uses: raven-actions/actionlint@v2
